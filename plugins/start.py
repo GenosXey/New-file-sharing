@@ -88,7 +88,7 @@ async def start_command(client: Client, message: Message):
                 try:
                     messages = await get_messages(client, ids)
                 except:
-                    await message.reply_text("Quelque chose s'est mal passé...! 🥲")
+                    await message.reply_text("Something went wrong..! 🥲")
                     return
                 await temp_msg.delete()
                 snt_msgs = []
@@ -145,11 +145,11 @@ async def start_command(client: Client, message: Message):
                         ids = [int(int(argument[1]) / abs(client.db_channel.id))]
                     except:
                         return
-                temp_msg = await message.reply("Veuillez Patientez... 🫷")
+                temp_msg = await message.reply("Please wait... 🫷")
                 try:
                     messages = await get_messages(client, ids)
                 except:
-                    await message.reply_text("Quelque chose s'est mal passé...! 🥲")
+                    await message.reply_text("Something went wrong..! 🥲")
                     return
                 await temp_msg.delete()
                 snt_msgs = []
@@ -216,18 +216,14 @@ async def start_command(client: Client, message: Message):
                     except:
                         continue
         reply_markup = InlineKeyboardMarkup(
-    [
-        [
-            InlineKeyboardButton("☺️ À propos de Moi", callback_data="about"),
-            InlineKeyboardButton("🔒 Fermer", callback_data="close")
-        ],
-        [
-            InlineKeyboardButton("⬬ KGC Anime ⬬", url='https://t.me/KGCAnime')
-        ]
-    ]
-)
-
-    await message.reply_photo(
+            [
+                [
+                    InlineKeyboardButton("😊 About Me", callback_data="about"),
+                    InlineKeyboardButton("🔒 Close", callback_data="close")
+                ]
+            ]
+        )
+        await message.reply_photo(
     photo="https://iili.io/30oyo2R.md.jpg",
     caption=START_MSG.format(
         first=message.from_user.first_name,
@@ -238,51 +234,30 @@ async def start_command(client: Client, message: Message):
     ),
     reply_markup=reply_markup,
     quote=True
-)
-
-if USE_SHORTLINK and (not U_S_E_P): 
-    if id in ADMINS:
-        return
-    verify_status = await get_verify_status(id)
-    if not verify_status['is_verified']:
-        token = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
-        await update_verify_status(id, verify_token=token, link="")
-        link = await get_shortlink(
-            SHORTLINK_API_URL,
-            SHORTLINK_API_KEY,
-            f'https://telegram.dog/{client.username}?start=verify_{token}'
-        )
-        if USE_PAYMENT:
-            btn = [
-                [
-                    InlineKeyboardButton("Click Here 👆", url=link),
-                    InlineKeyboardButton("How to open this link 👆", url=TUT_VID)
-                ],
-                [
-                    InlineKeyboardButton("Buy Premium plan", callback_data="buy_prem")
-                ]
-            ]
-        else:
-            btn = [
-                [
-                    InlineKeyboardButton("Click Here 👆", url=link)
-                ],
-                [
-                    InlineKeyboardButton("How to open this link 👆", url=TUT_VID)
-                ]
-            ]
-
-        await message.reply(
-            f"Your Ads token is expired, refresh your token and try again.\n\n"
-            f"Token Timeout: {get_exp_time(VERIFY_EXPIRE)}\n\n"
-            f"What is the token?\n\n"
-            f"This is an ads token. If you pass 1 ad, you can use the bot for {get_exp_time(VERIFY_EXPIRE)} after passing the ad",
-            reply_markup=InlineKeyboardMarkup(btn),
-            protect_content=False,
-            quote=True
         )
         return
-return
+    if USE_SHORTLINK and (not U_S_E_P): 
+        if id in ADMINS:
+            return
+        verify_status = await get_verify_status(id)
+        if not verify_status['is_verified']:
+            token = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+            await update_verify_status(id, verify_token=token, link="")
+            link = await get_shortlink(SHORTLINK_API_URL, SHORTLINK_API_KEY,f'https://telegram.dog/{client.username}?start=verify_{token}')
+            if USE_PAYMENT:
+                btn = [
+                [InlineKeyboardButton("Click Here 👆", url=link),
+                InlineKeyboardButton('How to open this link 👆', url=TUT_VID)],
+                [InlineKeyboardButton("Buy Premium plan", callback_data="buy_prem")]
+                ]
+            else:
+                btn = [
+                [InlineKeyboardButton("Click Here 👆", url=link)],
+                [InlineKeyboardButton('How to open this link 👆', url=TUT_VID)]
+                ]
+            await message.reply(f"Your Ads token is expired, refresh your token and try again. \n\nToken Timeout: {get_exp_time(VERIFY_EXPIRE)}\n\nWhat is the token?\n\nThis is an ads token. If you pass 1 ad, you can use the bot for {get_exp_time(VERIFY_EXPIRE)} after passing the ad", reply_markup=InlineKeyboardMarkup(btn), protect_content=False, quote=True)
+            return
+    return
 
 
     
@@ -300,10 +275,10 @@ async def not_joined(client: Client, message: Message):
         buttons = [
         [
             InlineKeyboardButton(
-                "Rejoindre le canal 👆",
+                "Join Channel 👆",
                 url=client.invitelink),
             InlineKeyboardButton(
-                "Rejoindre le canal 👆",
+                "Join Channel 👆",
                 url=client.invitelink2),
         ]
     ]
@@ -311,7 +286,7 @@ async def not_joined(client: Client, message: Message):
         buttons = [
             [
                 InlineKeyboardButton(
-                    "Rejoindre le canal 👆",
+                    "Join Channel 👆",
                     url=client.invitelink)
             ]
         ]
@@ -319,7 +294,7 @@ async def not_joined(client: Client, message: Message):
         buttons.append(
             [
                 InlineKeyboardButton(
-                    text='Réessayer 🥺',
+                    text='Try Again 🥺',
                     url=f"https://t.me/{client.username}?start={message.command[1]}"
                 )
             ]
@@ -344,17 +319,17 @@ async def not_joined(client: Client, message: Message):
 @Bot.on_message(filters.command('ch2l') & filters.private)
 async def gen_link_encoded(client: Bot, message: Message):
     try:
-        hash = await client.ask(text="Entrez le code ici... \n /cancel pour annuler l'opération",chat_id = message.from_user.id, timeout=60)
+        hash = await client.ask(text="Enter the code here... \n /cancel to cancel the operation",chat_id = message.from_user.id, timeout=60)
     except Exception as e:
         print(e)
-        await hash.reply(f"😔 Une erreur s'est produite. {e}")
+        await hash.reply(f"😔 some error occurred {e}")
         return
     if hash.text == "/cancel":
         await hash.reply("Cancelled 😉!")
         return
     link = f"https://t.me/{client.username}?start={hash.text}"
-    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🎉 Click Ici ", url=link)]])
-    await hash.reply_text(f"<b>🧑‍💻 Voici votre lien généré", quote=True, reply_markup=reply_markup)
+    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🎉 Click Here ", url=link)]])
+    await hash.reply_text(f"<b>🧑‍💻 Here is your generated link", quote=True, reply_markup=reply_markup)
     return
         
 
