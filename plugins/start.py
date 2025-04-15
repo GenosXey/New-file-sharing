@@ -88,7 +88,7 @@ async def start_command(client: Client, message: Message):
                 try:
                     messages = await get_messages(client, ids)
                 except:
-                    await message.reply_text("Something went wrong..! 🥲")
+                    await message.reply_text("Quelque chose s'est mal passé...! 🥲")
                     return
                 await temp_msg.delete()
                 snt_msgs = []
@@ -145,11 +145,11 @@ async def start_command(client: Client, message: Message):
                         ids = [int(int(argument[1]) / abs(client.db_channel.id))]
                     except:
                         return
-                temp_msg = await message.reply("Please wait... 🫷")
+                temp_msg = await message.reply("Veuillez Patientez... 🫷")
                 try:
                     messages = await get_messages(client, ids)
                 except:
-                    await message.reply_text("Something went wrong..! 🥲")
+                    await message.reply_text("Quelque chose s'est mal passé...! 🥲")
                     return
                 await temp_msg.delete()
                 snt_msgs = []
@@ -216,25 +216,29 @@ async def start_command(client: Client, message: Message):
                     except:
                         continue
         reply_markup = InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton("😊 About Me", callback_data="about"),
-                    InlineKeyboardButton("🔒 Close", callback_data="close")
-                ]
-            ]
-        )
-        await message.reply_photo(
-        photo="https://iili.io/3l3fAX9.md.jpg",
-        caption=START_MSG.format(
-            first=message.from_user.first_name,
-            last=message.from_user.last_name,
-            username=None if not message.from_user.username else '@' + message.from_user.username,
-            mention=message.from_user.mention,
-            id=message.from_user.id
-        ),
-        reply_markup=reply_markup,
-        quote=True
-    )
+    [
+        [
+            InlineKeyboardButton("☺️ À propos de Moi", callback_data="about"),
+            InlineKeyboardButton("🔒 Fermer", callback_data="close")
+        ],
+        [
+            InlineKeyboardButton("⤬ KGC Anime ⤬", url='https://t.me/KGCAnime')
+        ]
+    ]
+)
+
+await message.reply_photo(
+    photo="https://iili.io/30oyo2R.md.jpg",
+    caption=START_MSG.format(
+        first=message.from_user.first_name,
+        last=message.from_user.last_name,
+        username=None if not message.from_user.username else '@' + message.from_user.username,
+        mention=message.from_user.mention,
+        id=message.from_user.id
+    ),
+    reply_markup=reply_markup,
+    quote=True
+)
         return
     if USE_SHORTLINK and (not U_S_E_P): 
         if id in ADMINS:
@@ -275,10 +279,10 @@ async def not_joined(client: Client, message: Message):
         buttons = [
         [
             InlineKeyboardButton(
-                "Join Channel 👆",
+                "Rejoindre le canal 👆",
                 url=client.invitelink),
             InlineKeyboardButton(
-                "Join Channel 👆",
+                "Rejoindre le canal 👆",
                 url=client.invitelink2),
         ]
     ]
@@ -286,7 +290,7 @@ async def not_joined(client: Client, message: Message):
         buttons = [
             [
                 InlineKeyboardButton(
-                    "Join Channel 👆",
+                    "Rejoindre le canal 👆",
                     url=client.invitelink)
             ]
         ]
@@ -294,7 +298,7 @@ async def not_joined(client: Client, message: Message):
         buttons.append(
             [
                 InlineKeyboardButton(
-                    text='Try Again 🥺',
+                    text='Réessayer 🥺',
                     url=f"https://t.me/{client.username}?start={message.command[1]}"
                 )
             ]
@@ -319,17 +323,17 @@ async def not_joined(client: Client, message: Message):
 @Bot.on_message(filters.command('ch2l') & filters.private)
 async def gen_link_encoded(client: Bot, message: Message):
     try:
-        hash = await client.ask(text="Enter the code here... \n /cancel to cancel the operation",chat_id = message.from_user.id, timeout=60)
+        hash = await client.ask(text="Entrez le code ici... \n /cancel pour annuler l'opération",chat_id = message.from_user.id, timeout=60)
     except Exception as e:
         print(e)
-        await hash.reply(f"😔 some error occurred {e}")
+        await hash.reply(f"😔 Une erreur s'est produite. {e}")
         return
     if hash.text == "/cancel":
         await hash.reply("Cancelled 😉!")
         return
     link = f"https://t.me/{client.username}?start={hash.text}"
-    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🎉 Click Here ", url=link)]])
-    await hash.reply_text(f"<b>🧑‍💻 Here is your generated link", quote=True, reply_markup=reply_markup)
+    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🎉 Click Ici ", url=link)]])
+    await hash.reply_text(f"<b>🧑‍💻 Voici votre lien généré", quote=True, reply_markup=reply_markup)
     return
         
 
