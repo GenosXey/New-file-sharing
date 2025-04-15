@@ -43,7 +43,7 @@ DB_NAME = os.environ.get("DB_NAME", "alotf2")
 #for creating telegram thread for bot to improve performance of the bot
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "60"))
 #your start default command message.
-START_MSG = os.environ.get("START_MESSAGE", "Hello {first}\n\nI can store private files in Specified Channel and other users can access it from special link. 💾")
+START_MSG = os.environ.get("START_MESSAGE", "Salut {first}\n\nJe peux stocker des fichiers privés dans un canal spécifié et d'autres utilisateurs peuvent y accéder via un lien spécial. 💾")
 #your telegram tag without @
 OWNER_TAG = os.environ.get("OWNER_TAG", "Kingcey")
 #Time in seconds for message delete, put 0 to never delete
@@ -101,7 +101,7 @@ PRICE5 = os.environ.get("PRICE5", "999 rs")
 
 
 #force message for joining the channel
-FORCE_MSG = os.environ.get("FORCE_MSG", "Hello {first}\n\n<b>You need to join in my Channel/Group to use me\n\nKindly Please join Channel</b> 🥺")
+FORCE_MSG = os.environ.get("FORCE_MSG", "Bonjour {first}\n\n<b>Vous devez rejoindre mon canal/groupe pour m'utiliser\n\nVeuillez rejoindre le canal, s'il vous plaît</b> 🥺")
 #custom caption 
 CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", None)
 #protected content so that no files can be sent from the bot to anyone. recommended False
@@ -109,7 +109,7 @@ CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", None)
 PROTECT_CONTENT = True if os.environ.get("PROTECT_CONTENT", "FALSE") == "TRUE" else False
 #used if you dont need buttons on database channel.
 # True for yes False if no
-DISABLE_CHANNEL_BUTTON = True if os.environ.get("DISABLE_CHANNEL_BUTTON", "TRUE") == "TRUE" else False
+DISABLE_CHANNEL_BUTTON = True if os.environ.get("DISABLE_CHANNEL_BUTTON", "FALSE") == "TRUE" else False
 #you can add admin inside the bot(bug right now will fix later)
 
 #add admins with space seperated
