@@ -222,7 +222,7 @@ async def start_command(client: Client, message: Message):
             InlineKeyboardButton("🔒 Fermer", callback_data="close")
         ],
         [
-            InlineKeyboardButton("⤬ KGC Anime ⤬", url='https://t.me/KGCAnime')
+            InlineKeyboardButton("⬬ KGC Anime ⬬", url='https://t.me/KGCAnime')
         ]
     ]
 )
@@ -239,29 +239,50 @@ await message.reply_photo(
     reply_markup=reply_markup,
     quote=True
 )
+
+if USE_SHORTLINK and (not U_S_E_P): 
+    if id in ADMINS:
         return
-    if USE_SHORTLINK and (not U_S_E_P): 
-        if id in ADMINS:
-            return
-        verify_status = await get_verify_status(id)
-        if not verify_status['is_verified']:
-            token = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
-            await update_verify_status(id, verify_token=token, link="")
-            link = await get_shortlink(SHORTLINK_API_URL, SHORTLINK_API_KEY,f'https://telegram.dog/{client.username}?start=verify_{token}')
-            if USE_PAYMENT:
-                btn = [
-                [InlineKeyboardButton("Click Here 👆", url=link),
-                InlineKeyboardButton('How to open this link 👆', url=TUT_VID)],
-                [InlineKeyboardButton("Buy Premium plan", callback_data="buy_prem")]
+    verify_status = await get_verify_status(id)
+    if not verify_status['is_verified']:
+        token = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+        await update_verify_status(id, verify_token=token, link="")
+        link = await get_shortlink(
+            SHORTLINK_API_URL,
+            SHORTLINK_API_KEY,
+            f'https://telegram.dog/{client.username}?start=verify_{token}'
+        )
+        if USE_PAYMENT:
+            btn = [
+                [
+                    InlineKeyboardButton("Click Here 👆", url=link),
+                    InlineKeyboardButton("How to open this link 👆", url=TUT_VID)
+                ],
+                [
+                    InlineKeyboardButton("Buy Premium plan", callback_data="buy_prem")
                 ]
-            else:
-                btn = [
-                [InlineKeyboardButton("Click Here 👆", url=link)],
-                [InlineKeyboardButton('How to open this link 👆', url=TUT_VID)]
+            ]
+        else:
+            btn = [
+                [
+                    InlineKeyboardButton("Click Here 👆", url=link)
+                ],
+                [
+                    InlineKeyboardButton("How to open this link 👆", url=TUT_VID)
                 ]
-            await message.reply(f"Your Ads token is expired, refresh your token and try again. \n\nToken Timeout: {get_exp_time(VERIFY_EXPIRE)}\n\nWhat is the token?\n\nThis is an ads token. If you pass 1 ad, you can use the bot for {get_exp_time(VERIFY_EXPIRE)} after passing the ad", reply_markup=InlineKeyboardMarkup(btn), protect_content=False, quote=True)
-            return
-    return
+            ]
+
+        await message.reply(
+            f"Your Ads token is expired, refresh your token and try again.\n\n"
+            f"Token Timeout: {get_exp_time(VERIFY_EXPIRE)}\n\n"
+            f"What is the token?\n\n"
+            f"This is an ads token. If you pass 1 ad, you can use the bot for {get_exp_time(VERIFY_EXPIRE)} after passing the ad",
+            reply_markup=InlineKeyboardMarkup(btn),
+            protect_content=False,
+            quote=True
+        )
+        return
+return
 
 
     
