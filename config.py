@@ -41,7 +41,7 @@ DB_URL = os.environ.get("DB_URL", "mongodb+srv://altof2:123Bonjoure@cluster0.s1s
 DB_NAME = os.environ.get("DB_NAME", "alotf2")
 
 #for creating telegram thread for bot to improve performance of the bot
-TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "60"))
+TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "100"))
 #your start default command message.
 START_MSG = os.environ.get("START_MESSAGE", "Salut {first}\n\nJe peux stocker des fichiers privés dans un canal spécifié et d'autres utilisateurs peuvent y accéder via un lien spécial. 💾")
 #your telegram tag without @
@@ -109,7 +109,7 @@ CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", None)
 PROTECT_CONTENT = True if os.environ.get("PROTECT_CONTENT", "FALSE") == "TRUE" else False
 #used if you dont need buttons on database channel.
 # True for yes False if no
-DISABLE_CHANNEL_BUTTON = True if os.environ.get("DISABLE_CHANNEL_BUTTON", "FALSE") == "TRUE" else False
+DISABLE_CHANNEL_BUTTON = True if os.environ.get("DISABLE_CHANNEL_BUTTON", "FALSE") == "FALSE" else False
 #you can add admin inside the bot(bug right now will fix later)
 
 #add admins with space seperated
