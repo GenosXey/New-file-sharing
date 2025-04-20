@@ -47,7 +47,7 @@ START_MSG = os.environ.get("START_MESSAGE", "Salut {first}\n\nJe peux stocker de
 #your telegram tag without @
 OWNER_TAG = os.environ.get("OWNER_TAG", "Kingcey")
 #Time in seconds for message delete, put 0 to never delete
-TIME = int(os.environ.get("TIME", "0"))
+TIME = int(os.environ.get("TIME", "8400"))
 
 
 #Shortner (token system) 
@@ -109,7 +109,7 @@ CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", None)
 PROTECT_CONTENT = True if os.environ.get("PROTECT_CONTENT", "FALSE") == "TRUE" else False
 #used if you dont need buttons on database channel.
 # True for yes False if no
-DISABLE_CHANNEL_BUTTON = True if os.environ.get("DISABLE_CHANNEL_BUTTON", "FALSE") == "FALSE" else False
+DISABLE_CHANNEL_BUTTON = True if os.environ.get("DISABLE_CHANNEL_BUTTON", "TRUE") == "FALSE" else False
 #you can add admin inside the bot(bug right now will fix later)
 
 #add admins with space seperated
